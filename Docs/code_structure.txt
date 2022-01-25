@@ -1,0 +1,23 @@
+Attributes:
+	- Person
+		Varibles
+			name
+			adress
+			number
+			id number
+			face
+
+   		Functions
+			Get info
+			Update info
+
+Methods:
+	- Backend
+		Auto save
+
+	- Board
+		Menu
+			File
+			About
+		Get info and display
+
