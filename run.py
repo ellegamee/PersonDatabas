@@ -22,6 +22,17 @@ class Person():
         varible_dict[varible] = value
         root.update()
 
+def add_person(values):
+    # Update already created person
+    if update == True:
+        pass
+    
+    # If new person is created
+    else:
+        users.append(Person(root))
+        for varible, value in values:
+            users[-1].update_info(varible, value)
+
 # Window Made        
 root = Tk()
 root.configure(bg="#dcdad5")
@@ -67,6 +78,13 @@ for index, text in enumerate(label_text):
     
 for index in range(len(label_text)):    
     info_frames[index].pack()
+
+# Save and Cancel
+button_frame = Frame(root)
+Button(button_frame, text="Save").pack()
+Button(button_frame, text="Cancel").pack()
+
+button_frame.pack()
 
 root.mainloop()
       
