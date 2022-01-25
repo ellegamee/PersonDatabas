@@ -9,11 +9,11 @@ class Person():
         self.id_number
         self.face
       
-    def all_info():
+    def all_info(self):
         return [self.name, self.adress, self.phone_number,
                 self.id_number, self.face]
     
-    def update_info(varible, value):
+    def update_info(self, varible, value):
         varible_dict = {'name': self.name, 'adress': self.adress, 'phone_number': self.phone_number,
                'id_number': self.id_number, 'face': self.face}
         
