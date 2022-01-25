@@ -37,11 +37,15 @@ left_padding = round(screen_width * 0.15625)
 width = round(screen_width * 0.625)
 root.geometry(f'{width}x{height}+{left_padding}+{top_padding}')
 
+# Users
+users = []
+
 # Listbox
 listbox = Listbox(root)
-listbox.pack()
+listbox.place(anchor="center" ,relx=0.1, rely=0.5, relheight=0.9, relwidth=0.15)
 
-listbox.insert(1, 'test')
+# Add person choice
+listbox.insert(0, 'Add Person')
 
 root.mainloop()
       
