@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter.ttk import *
 
 class Person():
     def __init__(self, root):
@@ -20,6 +21,15 @@ class Person():
         varible_dict[varible] = value
         root.update()
 
+def on_entry_click(event):
+    """function that gets called whenever entry is clicked"""
+    if name_entry.get() == 'Enter Name':
+       name_entry.delete(0, "end") # delete all the text in the entry
+       name_entry.insert(0, '') #Insert blank for user input
+
+def on_focusout(event):
+    if name_entry.get() == '':
+        name_entry.insert(0, 'Enter Name')
 
 # Window Made        
 root = Tk()
@@ -46,6 +56,16 @@ listbox.place(anchor="center" ,relx=0.1, rely=0.5, relheight=0.9, relwidth=0.15)
 
 # Add person choice
 listbox.insert(0, 'Add Person')
+
+# Information boxes
+name_label = Label(text="Name")
+
+name_entry = Entry(text="Type name")
+name_entry.insert(0, 'Enter your user name...')
+name_entry.bind('<FocusIn>', on_entry_click)
+name_entry.bind('<FocusOut>', on_focusout)
+
+name_entry.pack()
 
 root.mainloop()
       
