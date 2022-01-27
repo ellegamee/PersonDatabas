@@ -5,33 +5,47 @@ from functools import partial
 class Person():
     def __init__(self, root):
         self.root = root
-        self.name
-        self.adress
-        self.phone_number
-        self.id_number
-        self.face
+        self.name = "name_self"
+        self.adress = ""
+        self.phone_number = ""
+        self.id_number = ""
+        self.face = ""
       
     def all_info(self):
         return [self.name, self.adress, self.phone_number,
                 self.id_number, self.face]
     
-    def update_info(self, varible, value):
-        varible_dict = {'name': self.name, 'adress': self.adress, 'phone_number': self.phone_number,
-               'id_number': self.id_number, 'face': self.face}
-        
-        varible_dict[varible] = value
-        root.update()
-
-def add_person(values):
+    def update_info(self, value, index):
+        if index == 0:
+            self.name = value
+        elif index == 1:
+            self.adress = value
+        elif index == 2:
+            self.phone_number = value
+        elif index == 3:
+            self.id_number = value          
+    
+def user_management(values, bool):
+    listbox_selcted = listbox.get(listbox.curselection())
     # Update already created person
-    if update == True:
+    if bool == True:
         pass
     
     # If new person is created
-    else:
+    elif bool != True and listbox_selcted == 'Add Person':
         users.append(Person(root))
-        for varible, value in values:
-            users[-1].update_info(varible, value)
+        for index, key in enumerate(values):
+            users[-1].update_info(values[key], index)
+        
+        #print('name', users[-1].name)
+        listbox.insert(0, users[-1].name)
+
+def entry_information():
+    lst = {}    
+    for key, (index, entry) in zip(label_text, enumerate(entrys)):
+        lst[f'{label_text[key]}'] = entry.get()
+    
+    return lst
 
 # Window Made        
 root = Tk()
@@ -63,7 +77,7 @@ listbox.place(anchor="center" ,relx=0.1, rely=0.5, relheight=0.9, relwidth=0.15)
 listbox.insert(0, 'Add Person')
 
 # Information boxes
-label_text = ["Name", 'Adress', 'Phone nummber', 'ID number']
+label_text = {'Name': 'name', 'Adress': 'adress', 'Phone nummber': 'phone_number', 'ID number': 'id_number'}
 info_frames = []
 labels = []
 entrys = []
@@ -81,7 +95,7 @@ for index in range(len(label_text)):
 
 # Save and Cancel
 button_frame = Frame(root)
-Button(button_frame, text="Save").pack()
+Button(button_frame, text="Save", command=lambda : (user_management(entry_information(), False))).pack()
 Button(button_frame, text="Cancel").pack()
 
 button_frame.pack()
