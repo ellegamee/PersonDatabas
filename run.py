@@ -5,11 +5,11 @@ from functools import partial
 class Person():
     def __init__(self, root):
         self.root = root
-        self.name = "name_self"
-        self.adress = ""
-        self.phone_number = ""
-        self.id_number = ""
-        self.face = ""
+        self.name = None
+        self.adress = None
+        self.phone_number = None
+        self.id_number = None
+        self.face = None
       
     def all_info(self):
         return [self.name, self.adress, self.phone_number,
@@ -32,18 +32,18 @@ def user_management(values, bool):
         pass
     
     # If new person is created
-    elif bool != True and listbox_selcted == 'Add Person':
+    elif bool != True and listbox_selcted == 'Add Person +':
         users.append(Person(root))
-        for index, key in enumerate(values):
-            users[-1].update_info(values[key], index)
+        for index, value in enumerate(values):
+            users[-1].update_info(value, index)
         
         #print('name', users[-1].name)
         listbox.insert(0, users[-1].name)
 
 def entry_information():
-    lst = {}    
-    for key, (index, entry) in zip(label_text, enumerate(entrys)):
-        lst[f'{label_text[key]}'] = entry.get()
+    lst = []    
+    for entry in entrys:
+        lst.append(entry.get())
     
     return lst
 
@@ -74,10 +74,10 @@ listbox = Listbox(root)
 listbox.place(anchor="center" ,relx=0.1, rely=0.5, relheight=0.9, relwidth=0.15)
 
 # Add person choice
-listbox.insert(0, 'Add Person')
+listbox.insert(0, 'Add Person +')
 
 # Information boxes
-label_text = {'Name': 'name', 'Adress': 'adress', 'Phone nummber': 'phone_number', 'ID number': 'id_number'}
+label_text = ['Name', 'Adress', 'Phone nummber', 'ID number']
 info_frames = []
 labels = []
 entrys = []
