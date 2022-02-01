@@ -26,16 +26,15 @@ class Person():
             self.id_number = value          
     
 def user_management(values):
-    if listbox.curselection() != "":
+    if listbox.curselection() != '':
         listbox_selcted = listbox.get(listbox.curselection())
         
         # If new person is created
         if listbox_selcted == 'Add Person +':
-            users.append(Person(root))
+            users.insert(0, Person(root))
             for index, value in enumerate(values):
-                users[-1].update_info(value, index)
-            
-            listbox.insert(0, users[-1].name)
+                users[0].update_info(value, index)
+            listbox.insert(0, users[0].name)
             
             # Selected newly created person
             listbox.selection_clear(0, END)
@@ -61,9 +60,23 @@ def get_entry_information():
     
     return lst
 
+def clickEvent(event):
+    # If add person
+    if listbox.get(listbox.curselection()) == 'Add Person +':
+        for entry in entrys:
+            entry.delete(0,'end')
+            entry.insert(0, '')
+    
+    else:
+        entry_info = users[listbox.curselection()[0]].all_info()
+        for var, entry in zip(entry_info, entrys):
+            entry.delete(0,'end')
+            entry.insert(0, var)
+
+
 # Window Made        
 root = Tk()
-root.configure(bg="#dcdad5")
+root.configure(bg='#dcdad5')
 style = Style()
 style.theme_use('clam')
 
@@ -85,7 +98,8 @@ users = []
 
 # Listbox
 listbox = Listbox(root, exportselection=False)
-listbox.place(anchor="center" ,relx=0.1, rely=0.5, relheight=0.9, relwidth=0.15)
+listbox.place(anchor='center' ,relx=0.1, rely=0.5, relheight=0.9, relwidth=0.15)
+listbox.bind('<<ListboxSelect>>', clickEvent)
 
 # Add person choice
 listbox.insert(0, 'Add Person +')
@@ -109,8 +123,8 @@ for index in range(len(label_text)):
 
 # Save and Cancel
 button_frame = Frame(root)
-Button(button_frame, text="Save", command=lambda : (user_management(get_entry_information()))).pack()
-Button(button_frame, text="Cancel").pack()
+Button(button_frame, text='Save', command=lambda : (user_management(get_entry_information()))).pack()
+Button(button_frame, text='Cancel').pack()
 
 button_frame.pack()
 
