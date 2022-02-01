@@ -73,7 +73,6 @@ def clickEvent(event):
             entry.delete(0,'end')
             entry.insert(0, var)
 
-
 # Window Made        
 root = Tk()
 root.configure(bg='#dcdad5')
@@ -92,6 +91,30 @@ height = round(screen_height * 0.694444444)
 left_padding = round(screen_width * 0.15625)
 width = round(screen_width * 0.625)
 root.geometry(f'{width}x{height}+{left_padding}+{top_padding}')
+
+# Menu
+menubar = Menu(root)
+root.config(menu=menubar)
+
+file_menu = Menu(menubar)
+file_menu = Menu(menubar, tearoff=False)
+
+file_menu.add_command(
+    label="Save"
+)
+
+file_menu.add_command(
+    label="Reset all"
+)
+
+file_menu.add_command(
+    label="Exit"
+)
+
+menubar.add_cascade(
+    label='File',
+    menu=file_menu
+)
 
 # Users
 users = []
