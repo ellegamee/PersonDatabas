@@ -1,10 +1,10 @@
 from tkinter import *
 from tkinter.ttk import *
-from functools import partial
+import pickle
+import os
 
 class Person():
-    def __init__(self, root):
-        self.root = root
+    def __init__(self):
         self.name = None
         self.adress = None
         self.phone_number = None
@@ -24,14 +24,33 @@ class Person():
             self.phone_number = value
         elif index == 3:
             self.id_number = value          
+
+def load_pickel():
+    if os.path.getsize('data.db') != 0:
+        db_file = open('data.db', 'rb')
+        content = pickle.load(db_file)
+        db_file.close()
+
+        for user in content:
+            listbox.insert(-2, user.name)
+        
+        return content
+
+    else:
+        return []
     
+def save_pickel():
+    db_file = open('data.db', 'wb')
+    pickle.dump(users, db_file)
+    db_file.close()
+
 def user_management(values):
     if listbox.curselection() != '':
         listbox_selcted = listbox.get(listbox.curselection())
         
         # If new person is created
         if listbox_selcted == 'Add Person +':
-            users.insert(0, Person(root))
+            users.insert(0, Person())
             for index, value in enumerate(values):
                 users[0].update_info(value, index)
             listbox.insert(0, users[0].name)
@@ -46,6 +65,9 @@ def user_management(values):
                 users[listbox.curselection()[0]].update_info(value, index)
             
             set_entry_information(listbox.curselection()[0])
+        
+        print(users)
+        save_pickel()
 
 def set_entry_information(selected_index):        
     listbox.delete(selected_index)
@@ -116,9 +138,6 @@ menubar.add_cascade(
     menu=file_menu
 )
 
-# Users
-users = []
-
 # Listbox
 listbox = Listbox(root, exportselection=False)
 listbox.place(anchor='center' ,relx=0.1, rely=0.5, relheight=0.9, relwidth=0.15)
@@ -147,9 +166,10 @@ for index in range(len(label_text)):
 # Save and Cancel
 button_frame = Frame(root)
 Button(button_frame, text='Save', command=lambda : (user_management(get_entry_information()))).pack()
-Button(button_frame, text='Cancel').pack()
-
 button_frame.pack()
+
+# Users
+users = load_pickel()
 
 root.mainloop()
       
