@@ -3,13 +3,13 @@ Attributes:
 		Varibles
 			name
 			adress
-			number
-			id number
+			phone_number
+			id_number
 			face
 
    		Functions
-			Get info
-			Update info
+			all_info
+			update_info
 
 Methods:
 	- Backend
