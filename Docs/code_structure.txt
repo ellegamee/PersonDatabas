@@ -12,12 +12,10 @@ Attributes:
 			update_info
 
 Methods:
-	- Backend
-		Auto save
-
-	- Board
-		Menu
-			File
-			About
-		Get info and display
+	load_pickel
+	save_pickel
+	user_management
+	set_entry_information
+	get_entry_information
+	clickEvent
 
